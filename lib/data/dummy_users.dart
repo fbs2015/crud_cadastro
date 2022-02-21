@@ -1,6 +1,6 @@
 import 'package:crud_cadastro/models/user.dart';
 
-final DUMMY_USERS = {
+Map<String, User> DUMMY_USERS = {
   '1': User(
     id: '1',
     name: 'Maria',
