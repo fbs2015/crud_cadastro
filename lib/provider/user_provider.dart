@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:crud_cadastro/data/dummy_users.dart';
 import 'package:crud_cadastro/models/user.dart';
 import 'package:flutter/material.dart';
@@ -13,5 +15,29 @@ class UsersProvider with ChangeNotifier{
     return _items.length;
   }
 
-  
+  User byIndex(int i){
+    return _items.values.elementAt(i);
+  }
+
+  void put(User user){ 
+
+    if(user.id.trim().isNotEmpty && _items.containsKey(user.id)){
+      _items.update(user.id, (_) => user);
+    }else{
+      final id = Random().nextDouble().toString();
+
+      _items.putIfAbsent(id,  () => User(
+        id: id,
+        name: user.name,
+        email: user.email,
+        avatarUrl: user.avatarUrl
+    ));    
+    }
+    notifyListeners();
+  }
+
+  void remove(String id){
+    _items.remove(id);
+    notifyListeners();
+  }
 }
